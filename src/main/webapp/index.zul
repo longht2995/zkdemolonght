@@ -1,0 +1,138 @@
+<zk>
+	<style>
+		.z-notification-content{ margin-top:20px !important; }
+	</style>
+	<zscript>
+		<![CDATA[
+	import greenglobal.demo.longht.entity.*;
+	Product newProduct = new Product();
+]]>
+	</zscript>
+	<window apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('greenglobal.demo.longht.MyViewModel')">
+		<vlayout>
+			<hbox align="center" hflex="1">
+				<combobox selectedItem="@save(vm.pageSize)" value="5"
+					width="80px">
+					<comboitem label="${each}" value="${each}"
+						forEach="5,10,15,30">
+					</comboitem>
+				</combobox>
+				<button label="Add"
+					onClick="@command('showWindow',product = newProduct)" />
+				<bandbox id="bd" autodrop="true"
+					onChanging="@command('searchKey',key = event.value)">
+					<bandpopup>
+						<vbox>
+
+							<listbox model="@load(vm.listSearch)"
+								width="500px" emptyMessage="No found "
+								selectedItem="@command('showWindow', product = each)">
+								<listhead>
+									<listheader label="Category" />
+									<listheader label="Name" />
+									<listheader label="Description" />
+									<listheader label="Price" />
+								</listhead>
+								<template name="model">
+									<listitem>
+
+										<listcell>
+											<label
+												value="@load(each.category.name)">
+											</label>
+										</listcell>
+										<listcell>
+											<label
+												value="@load(each.name)">
+											</label>
+										</listcell>
+										<listcell>
+											<label
+												value="@load(each.description)">
+											</label>
+										</listcell>
+										<listcell>
+											<label
+												value="@load(each.price)">
+											</label>
+										</listcell>
+
+									</listitem>
+								</template>
+							</listbox>
+							<paging pageSize="@load(vm.pageSize)"
+								totalSize="@load(vm.sizeListSeacrh)"
+								activePage="@save(vm.activePageSearch)">
+							</paging>
+						</vbox>
+					</bandpopup>
+				</bandbox>
+			</hbox>
+			<listbox model="@load(vm.listProduct)" rows="5">
+				<listhead>
+					<listheader hflex="min" label="ID" />
+					<listheader label="Category" />
+					<listheader label="Name" />
+					<listheader label="Description" />
+					<listheader label="Price" />
+					<listheader label="Date" />
+					<listheader label="Last Update" />
+					<listheader hflex="min" />
+					<listheader hflex="min" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.id)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.category.name)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.name)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.description)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.price)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.date)"></label>
+						</listcell>
+						<listcell>
+
+							<choose>
+								<when
+									test="@load(not empty each.dateupdate )">
+									<label
+										value="@load(each.dateupdate)">
+									</label>
+								</when>
+								<otherwise>
+									<label value="Not update"></label>
+								</otherwise>
+							</choose>
+
+						</listcell>
+						<listcell>
+							<button label="Edit"
+								onClick="@command('showWindow', product = each)">
+							</button>
+						</listcell>
+						<listcell>
+							<button label="Delete"
+								onClick="@command('deleteProduct', product = each)">
+								
+								</button>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<paging pageSize="@load(vm.pageSize)"
+				totalSize="@load(vm.sizeList)" activePage="@save(vm.activePage)">
+			</paging>
+		</vlayout>
+	</window>
+</zk>

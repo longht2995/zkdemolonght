@@ -1,0 +1,103 @@
+<!-- <?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window width="80%" title="Save or Update" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('greenglobal.demo.longht.MyViewModel')"
+		closable="true" validationMessages="@id('vmsgs')"
+		form="@id('fx') @init(arg.product) @save(vm.product,before='addProduct')@validator('greenglobal.demo.longht.ProductValidator')" >
+		<grid>
+			<rows>
+				<row>
+					<label value="Name" width="150px"></label>
+					<hlayout>
+						<textbox value="@bind(fx.name)"/>
+						<label value="@load(vmsgs['name'])"></label>
+					</hlayout>
+				</row>
+				<row>
+					<label value="Description" width="150px"></label>
+					<hlayout>
+						<textbox value="@bind(fx.description)" />
+						<label value="@load(vmsgs['description'])"></label>
+					</hlayout>
+				</row>
+				<row>
+					<label value="Price" width="150px"></label>
+					<hlayout>
+						<doublebox value="@bind(fx.price)" />
+						<label value="@load(vmsgs['price'])"></label>
+					</hlayout>
+				</row>
+				<row>
+					<label value="Category" width="150px"></label>
+					<hlayout>
+						<combobox model="@load(vm.listCategory)"
+							selectedItem="@bind(fx.category)"> 
+							<template name="model">
+								<comboitem label="@load(each.name)" ></comboitem>
+							</template>
+						</combobox>
+						<label value="@load(vmsgs['category'])"></label>
+					</hlayout>
+				</row>
+				<row>
+					<cell colspan="2" style="text-align:center">
+						<button label="Add"
+							onClick="@command('addProduct',product = fx)">
+						</button>
+						<zscript>
+						System.out.print("fx"+fx);
+						</zscript>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+		<label value="@load(fx.price)"></label>
+		<label value="@load(fx.category.id)"></label>
+		<label value="@load(fx.category.name)"></label>
+	</window>
+</zk> -->
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window width="80%" title="Save or Update" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('greenglobal.demo.longht.entity.Product')"
+		closable="true" >
+		<grid>
+			<rows>
+				<row>
+					<label value="Name" width="150px"></label>
+					<hlayout>
+						<textbox value="@bind(vm.name)"/>
+						<label value="@load(vmsgs['name'])"></label>
+					</hlayout>
+				</row>
+				<row>
+					<label value="Description" width="150px"></label>
+					<hlayout>
+						<textbox value="@bind(vm.description)" />
+						<label value="@load(vmsgs['description'])"></label>
+					</hlayout>
+				</row>
+				<row>
+					<label value="Price" width="150px"></label>
+					<hlayout>
+						<doublebox value="@bind(vm.price)" />
+						<label value="@load(vmsgs['price'])"></label>
+					</hlayout>
+				</row>
+				<row>
+					<cell colspan="2" style="text-align:center">
+						<button label="Add"
+							onClick="@command('addProduct',product = vm)">
+						</button>
+						
+					</cell>
+				</row>
+			</rows>
+		</grid>
+		<label value="@load(fx.price)"></label>
+		<label value="@load(fx.category.id)"></label>
+		<label value="@load(fx.category.name)"></label>
+	</window>
+</zk>

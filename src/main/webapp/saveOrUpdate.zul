@@ -1,0 +1,60 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	
+	<window id="wdn" width="80%" title="Save or Update" border="normal" closable="true"
+		apply="org.zkoss.bind.BindComposer" validationMessages="@id('vmsgs')" viewModel="@id('vm') @init('greenglobal.demo.longht.entity.Product')">
+		<groupbox>
+		<grid form="@id('fx') @load(arg.product)">
+			<rows>
+				<row>
+					<label value="Name"></label>
+					<textbox value="@bind(fx.name) @save(fx.name , before='save') @validator('greenglobal.demo.longht.ProductValidator')"></textbox>
+					<label class="error" value="@load(vmsgs['name'])" />
+				</row>
+				<row>
+					<label value="Description"></label>
+					<textbox value="@bind(fx.description) @save(fx.description , before='save') @validator('greenglobal.demo.longht.ProductValidator')"></textbox>
+					<label class="error" value="@load(vmsgs['description'])" />
+				</row>
+				<row>
+					<label value="Price"></label>
+					<doublebox value="@bind(fx.price) @save(fx.price , before='save') @validator('greenglobal.demo.longht.ProductValidator')"></doublebox>
+					<label class="error" value="@load(vmsgs['price'])" />
+				</row>
+				<row>
+					<label value="Category"></label>
+					<combobox model="@load(arg.category)" value="@load(fx.category.name)" selectedItem="@bind(fx.category)@save(fx.category , before='save') @validator('greenglobal.demo.longht.ProductValidator')">
+						<template name="model" status="ss">
+							<comboitem label="@load(each.name)" ></comboitem>
+						</template>
+					</combobox>
+					<label class="error" value="@load(vmsgs['category'])" />
+				</row>
+				<row>
+					<label value="Image"></label>
+					<button label="Upload" upload="true,multiple=true" onUpload="@command('onImageUpload', index = -1)"/>
+					<div style="display:flex;!important">
+					<forEach items="@load(vm.myImage)" varStatus="stt">
+						<if test="@load(each)">
+							<div zclass="image-content">
+								<div zclass="image-close" onClick="@command('dropImage',vitri = stt.index)">x</div>
+								<button label="Edit" upload="true" onUpload="@command('onImageUpload',index = stt.index)"></button>
+								<image content="@load(each)" width="50px" height="50px"></image>
+							</div>
+							
+							
+						</if>
+					</forEach>
+					</div>
+					
+				</row>
+				<row>
+					<button label="Save" onClick="@command('save', product = fx, wdn = wdn)"></button>
+				</row>
+			</rows>
+		</grid>
+		
+		</groupbox>
+	</window>
+</zk>

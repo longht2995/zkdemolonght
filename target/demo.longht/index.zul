@@ -1,0 +1,42 @@
+<zk>
+	<window apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('greenglobal.demo.longht.MyViewModel')">
+		<vlayout>
+			<hbox align="center" hflex="1">
+				<button label="add" onClick="@command('showWindowAdd')" />
+			</hbox>
+			<listbox model="@load(vm.listProduct)" rows="10">
+				<listhead>
+					<listheader hflex="min" label="ID"/>
+					<listheader label="Name"/>
+					<listheader label="Description"/>
+					<listheader label="Price"/>
+					<listheader hflex="min" />
+					<listheader hflex="min" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.id)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.name)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.description)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.price)"></label>
+						</listcell>
+						<listcell>
+							<button label="Edit" onClick="@command('showWindowEdit', product = each)"></button>
+						</listcell>
+						<listcell>
+							<button label="Delete" onClick="@command('deleteLog', log=each)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+	</window>
+</zk>
